@@ -19,16 +19,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'api'], function () {
-    Route::group([
+Route::group([
 
-        'middleware' => 'api',
-        'prefix'     => 'auth',
+    'middleware' => 'api',
+    'prefix' => 'auth'
 
-    ], function ($router) {
-        $router->post('login', [AuthController::class, 'login'])->name('login');
-        $router->post('logout', [AuthController::class, 'logout'])->name('logout');
-        $router->post('refresh', [AuthController::class, 'refresh'])->name('refresh');
-        $router->get('profile', [AuthController::class, 'profile'])->name('profile');
-    });
+], function ($router) {
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
+    Route::get('profile', [AuthController::class, 'profile'])->name('profile');
 });
